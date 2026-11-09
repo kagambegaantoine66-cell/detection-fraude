@@ -45,14 +45,16 @@ Séparation des responsabilités : le backend gère calcul et décision, l'inter
 |  API (FastAPI sur Render)            | [https://detection-fraude-7tej.onrender.com](https://detection-fraude-7tej.onrender.com?utm_source=chatgpt.com)           |
 | Documentation interactive (Swagger) | [https://detection-fraude-7tej.onrender.com/docs](https://detection-fraude-7tej.onrender.com/docs?utm_source=chatgpt.com) |
 | Interface Streamlit                 | https://my-fraud-shield.streamlit.app/                                                                     |
-Jeu de données & features
-Source
-Dataset: PaySim — Synthetic Financial Datasets For Fraud Detection (Kaggle)
-Volume : 6 362 620 transactions · Cible : isFraud (0,13 % de fraudes)
-Périmètre retenu : TRANSFER et CASH_OUT uniquement → 2 770 409 transactions
-Découpage : 80 % entraînement (2 216 327) / 20 % test (554 082, dont 1 643 fraudes), avec stratify=y
-Identifiants supprimés : nameOrig et nameDest (risque de surapprentissage sur des comptes particuliers)
-
+# Jeu de données & features
+| Élément                | Description                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------- |
+| Source                 | PaySim — Synthetic Financial Datasets For Fraud Detection (Kaggle)                          |
+| Volume initial         | 6 362 620 transactions                                                                      |
+| Variable cible         | `isFraud` (0,13 % de fraudes)                                                               |
+| Périmètre retenu       | `TRANSFER` et `CASH_OUT` uniquement, soit 2 770 409 transactions                            |
+| Découpage              | 80 % entraînement (2 216 327) / 20 % test (554 082, dont 1 643 fraudes)                     |
+| Stratification         | `stratify=y` pour conserver la proportion de fraudes dans les deux ensembles                |
+| Identifiants supprimés | `nameOrig` et `nameDest`, afin d'éviter le surapprentissage lié à des comptes particuliers. |
 ### Les 10 variables retenues
 
 | #  | Variable           | Nature                           | Justification                                                                          |
