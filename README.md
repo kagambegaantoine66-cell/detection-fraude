@@ -27,7 +27,7 @@ Points clés de l'étude
 Le projet repose sur une architecture découplée. Le moteur de scoring (backend) fonctionne indépendamment de l'interface utilisateur (frontend). Les deux communiquent via des requêtes HTTP au format JSON.
 | Composant          | Rôle                                                                                                                                      | Technologie                            | Fichier                           |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | --------------------------------- |
-| Données & modèle   | Exploration des données, création de variables, entraînement et évaluation du modèle.                                                     | Python, pandas, scikit-learn, LightGBM | Notebook / scripts d'entraînement |
+| Données & modèle   | Exploration des données, création de variables, entraînement et évaluation du modèle.                                                     | Python, pandas, scikit-learn, LightGBM | Fraude_data_bank.ipynb |
 | Backend de scoring | Charge le modèle, reçoit les transactions au format JSON et renvoie un score de risque ainsi qu'une décision.                             | FastAPI + Uvicorn                      | `fraud_app.py`                    |
 | Interface métier   | Tableau de bord interactif pour consulter et suivre les transactions analysées. Elle interroge l'API sans exécuter directement le modèle. | Streamlit                              | `my_fraud_shield.py` 
 
