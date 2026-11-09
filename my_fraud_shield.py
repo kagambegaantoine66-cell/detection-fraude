@@ -1,12 +1,18 @@
+import os
+from pathlib import Path
+
 import requests
 import pandas as pd
 import streamlit as st
+
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000").rstrip("/")
+LOGO = Path(__file__).resolve().parent / "logo"
 
 
 # Configuration de la page
 st.set_page_config(
     page_title="FraudShield Pro | Détection en Direct",
-    page_icon="logo.jpg",  # Nom exact de votre logo dans le dossier
+    page_icon=str(LOGO) if LOGO.exists() else "🛡️",  # Nom exact de votre logo dans le dossier
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -100,7 +106,7 @@ with col1:
 with col2:
   st.subheader("Statut du Système")
   st.metric(label="Modèle actif", value="LightGBM v1.0")
-  st.metric(label="Connexion API", value="En ligne (Port 8000)")
+  st.metric(label="Connexion API", value="Serveur distant (Render)")
 
 st.divider()
 
@@ -121,7 +127,7 @@ if analyze_btn:
 
   with st.spinner("Analyse comportementale en cours par le modèle..."):
     try:
-      response = requests.post("http://127.0.0.1:8000/predict", json=payload)
+      response = requests.post(f"{API_URL}/predict", json=payload, timeout=90)
 
       if response.status_code == 200:
         resultat = response.json()
@@ -133,10 +139,15 @@ if analyze_btn:
             "Erreur de communication avec le serveur FastAPI (Code :"
             f" {response.status_code})"
         )
+    except requests.exceptions.Timeout:
+      st.warning(
+          "L'API met du temps à répondre"
+          ". Patientez quelques secondes puis relancez l'analyse."
+      )
     except requests.exceptions.ConnectionError:
       st.error(
-          "Impossible de joindre l'API. Vérifiez que votre serveur Uvicorn est"
-          " bien actif dans le terminal."
+          "Impossible de joindre l'API. Vérifiez que le service API est bien"
+          " actif sur Render."
       )
 else:
   st.info(

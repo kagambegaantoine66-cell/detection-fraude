@@ -1,5 +1,8 @@
-streamlit
+fastapi
+uvicorn
 pandas
-lightgbm
 joblib
+lightgbm
 scikit-learn
+streamlit
+requests

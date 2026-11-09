@@ -1,11 +1,14 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import joblib
 
-model= joblib.load(r"C:/Users/USER/projet_detection_fraud/model_lightlgbm_fraud.pkl")
-features_names= joblib.load(r"C:/Users/USER/projet_detection_fraud/model_features.pkl")
+BASE_DIR = Path(__file__).resolve().parent
 
+model = joblib.load(BASE_DIR / "model_lightlgbm_fraud.pkl")
+features_names = joblib.load(BASE_DIR / "model_features.pkl")
 
 app= FastAPI(
     title="API de Détection de Fraude PaySim",
